@@ -8,6 +8,12 @@ function computerPlay() {
 
 // Play round
 function playRound(playerSelection, computerSelection) {
+  if (playerSelection === null) {
+    return {
+      status: 'stop',
+      message: 'Game over.',
+    };
+  }
   const playerMove = playerSelection.toLowerCase();
   const computerMove = computerSelection.toLowerCase();
 
@@ -16,7 +22,10 @@ function playRound(playerSelection, computerSelection) {
     playerMove !== 'paper' &&
     playerMove !== 'scissors'
   ) {
-    return "Invalid move. Try again with 'Rock', 'Paper' or 'Scissors'.";
+    return {
+      status: 'error',
+      message: "Invalid move. Try again with 'Rock', 'Paper' or 'Scissors'.",
+    };
   }
 
   if (playerMove === 'rock') {
@@ -54,8 +63,10 @@ function playRound(playerSelection, computerSelection) {
 function game() {
   let playerScore = 0;
   let computerScore = 0;
+  let j = 0;
 
   for (let i = 0; i < 5; i++) {
+    i = j;
     const playerSelection = window.prompt(
       'Enter your move, Rock, Paper or Scissors?:'
     );
@@ -66,6 +77,13 @@ function game() {
     }
     if (curGame.status === 'lose') {
       computerScore++;
+    }
+    if (curGame.status !== 'error') {
+      j++;
+    }
+    if (curGame.status === 'stop') {
+      console.log('Game ended');
+      return;
     }
     console.log(curGame.message);
   }
