@@ -1,3 +1,4 @@
+// Generate random player move
 function computerPlay() {
   const moves = ['Rock', 'Paper', 'Scissors'];
   const moveIndex = Math.floor(Math.random() * 3);
@@ -5,6 +6,7 @@ function computerPlay() {
   return move;
 }
 
+// Play round
 function playRound(playerSelection, computerSelection) {
   const playerMove = playerSelection.toLowerCase();
   const computerMove = computerSelection.toLowerCase();
@@ -19,36 +21,64 @@ function playRound(playerSelection, computerSelection) {
 
   if (playerMove === 'rock') {
     if (computerMove === 'rock') {
-      return 'Draw!';
+      return { status: 'draw', message: 'Draw!' };
     }
     if (computerMove === 'paper') {
-      return 'You Lose! Paper beats Rock';
+      return { status: 'lose', message: 'You Lose! Paper beats Rock' };
     }
-    return 'You Win! Rock beats Scissors';
+    return { status: 'win', message: 'You Win! Rock beats Scissors' };
   }
 
   if (playerMove === 'paper') {
     if (computerMove === 'paper') {
-      return 'Draw!';
+      return { status: 'draw', message: 'Draw!' };
     }
     if (computerMove === 'scissors') {
-      return 'You Lose! Scissors beats Paper';
+      return { status: 'lose', message: 'You Lose! Scissors beats Paper' };
     }
-    return 'You Win! Paper beats Rock';
+    return { status: 'win', message: 'You Win! Paper beats Rock' };
   }
 
   if (playerMove === 'scissors') {
     if (computerMove === 'scissors') {
-      return 'Draw!';
+      return { status: 'draw', message: 'Draw!' };
     }
     if (computerMove === 'rock') {
-      return 'You Lose! Rock beats Scissors';
+      return { status: 'lose', message: 'You Lose! Rock beats Scissors' };
     }
-    return 'You Win! Scissors beats Paper';
+    return { status: 'win', message: 'You Win! Scissors beats Paper' };
   }
 }
 
-const playerSelection = 'Scissors';
-const computerSelection = computerPlay();
+// Game loop
+function game() {
+  let playerScore = 0;
+  let computerScore = 0;
 
-console.log(playRound(playerSelection, computerSelection));
+  for (let i = 0; i < 5; i++) {
+    const playerSelection = window.prompt(
+      'Enter your move, Rock, Paper or Scissors?:'
+    );
+    const computerSelection = computerPlay();
+    const curGame = playRound(playerSelection, computerSelection);
+    if (curGame.status === 'win') {
+      playerScore++;
+    }
+    if (curGame.status === 'lose') {
+      computerScore++;
+    }
+    console.log(curGame.message);
+  }
+
+  const finalScore = `Final score was: You ${playerScore}, Computer ${computerScore}.`;
+
+  if (playerScore === computerScore) {
+    console.log('It was a draw... ' + finalScore);
+  } else if (playerScore > computerScore) {
+    console.log('You win! ' + finalScore);
+  } else {
+    console.log('You lose! ' + finalScore);
+  }
+}
+
+game();
