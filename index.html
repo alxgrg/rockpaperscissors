@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <head>
   <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
   <script src="./script.js" defer="defer"></script>
 </head>
 <body>
   <h1>ROCK PAPER SCISSORS!!!</h1>
-  
+  <div class="container">
+    <button class="rock" value="rock" name="rock">Rock</button>
+    <button class="paper" value="paper" name="paper">Paper</button>
+    <button class="scissors" value="scissors" name="scissors">Scissors</button>
+    <div class="score-box">
+      <div class="card">
+        <h3>Player</h3>
+        <div id="player-move">-</div>
+        <div id="player-score">0</div>
+      </div>
+      <div class="card">
+        <h3>Computer</h3>
+        <div id="computer-move">-</div>
+        <div id="computer-score">0</div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

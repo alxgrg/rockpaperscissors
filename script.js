@@ -7,20 +7,23 @@ function computerPlay() {
 }
 
 // Play round
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection = computerPlay()) {
   if (playerSelection === null) {
     return {
       status: 'stop',
       message: 'Game over.',
     };
   }
-  const playerMove = playerSelection.toLowerCase();
-  const computerMove = computerSelection.toLowerCase();
+
+  const state = {
+    playerMove: playerSelection.toLowerCase(),
+    computerMove: computerSelection.toLowerCase(),
+  };
 
   if (
-    playerMove !== 'rock' &&
-    playerMove !== 'paper' &&
-    playerMove !== 'scissors'
+    state.playerMove !== 'rock' &&
+    state.playerMove !== 'paper' &&
+    state.playerMove !== 'scissors'
   ) {
     return {
       status: 'error',
@@ -28,34 +31,50 @@ function playRound(playerSelection, computerSelection) {
     };
   }
 
-  if (playerMove === 'rock') {
-    if (computerMove === 'rock') {
-      return { status: 'draw', message: 'Draw!' };
+  if (state.playerMove === 'rock') {
+    if (state.computerMove === 'rock') {
+      return { ...state, status: 'draw', message: 'Draw!' };
     }
-    if (computerMove === 'paper') {
-      return { status: 'lose', message: 'You Lose! Paper beats Rock' };
+    if (state.computerMove === 'paper') {
+      return {
+        ...state,
+        status: 'lose',
+        message: 'You Lose! Paper beats Rock',
+      };
     }
-    return { status: 'win', message: 'You Win! Rock beats Scissors' };
+    return { ...state, status: 'win', message: 'You Win! Rock beats Scissors' };
   }
 
-  if (playerMove === 'paper') {
-    if (computerMove === 'paper') {
-      return { status: 'draw', message: 'Draw!' };
+  if (state.playerMove === 'paper') {
+    if (state.computerMove === 'paper') {
+      return { ...state, status: 'draw', message: 'Draw!' };
     }
-    if (computerMove === 'scissors') {
-      return { status: 'lose', message: 'You Lose! Scissors beats Paper' };
+    if (state.computerMove === 'scissors') {
+      return {
+        ...state,
+        status: 'lose',
+        message: 'You Lose! Scissors beats Paper',
+      };
     }
-    return { status: 'win', message: 'You Win! Paper beats Rock' };
+    return { ...state, status: 'win', message: 'You Win! Paper beats Rock' };
   }
 
-  if (playerMove === 'scissors') {
-    if (computerMove === 'scissors') {
-      return { status: 'draw', message: 'Draw!' };
+  if (state.playerMove === 'scissors') {
+    if (state.computerMove === 'scissors') {
+      return { ...state, status: 'draw', message: 'Draw!' };
     }
-    if (computerMove === 'rock') {
-      return { status: 'lose', message: 'You Lose! Rock beats Scissors' };
+    if (state.computerMove === 'rock') {
+      return {
+        ...state,
+        status: 'lose',
+        message: 'You Lose! Rock beats Scissors',
+      };
     }
-    return { status: 'win', message: 'You Win! Scissors beats Paper' };
+    return {
+      ...state,
+      status: 'win',
+      message: 'You Win! Scissors beats Paper',
+    };
   }
 }
 
@@ -63,40 +82,71 @@ function playRound(playerSelection, computerSelection) {
 function game() {
   let playerScore = 0;
   let computerScore = 0;
-  let j = 0;
 
-  for (let i = 0; i < 5; i++) {
-    i = j;
-    const playerSelection = window.prompt(
-      'Enter your move, Rock, Paper or Scissors?:'
-    );
-    const computerSelection = computerPlay();
-    const curGame = playRound(playerSelection, computerSelection);
-    if (curGame.status === 'win') {
+  const container = document.querySelector('.container');
+  const rock = document.querySelector('.rock');
+  const paper = document.querySelector('.paper');
+  const scissors = document.querySelector('.scissors');
+
+  const playerMoveEl = document.getElementById('player-move');
+  const playerScoreEl = document.getElementById('player-score');
+  const computerMoveEl = document.getElementById('computer-move');
+  const computerScoreEl = document.getElementById('computer-score');
+
+  rock.addEventListener('click', () => {
+    const result = playRound(rock.value, computerPlay());
+    playerMoveEl.innerText = 'ROCK';
+    computerMoveEl.innerText = result.computerMove.toUpperCase();
+    if (result.status === 'win') {
       playerScore++;
+      playerScoreEl.innerText = playerScore;
     }
-    if (curGame.status === 'lose') {
+    if (result.status === 'lose') {
       computerScore++;
+      computerScoreEl.innerText = computerScore;
     }
-    if (curGame.status !== 'error') {
-      j++;
-    }
-    if (curGame.status === 'stop') {
-      console.log('Game ended');
-      return;
-    }
-    console.log(curGame.message);
-  }
+    console.log(result.message);
+  });
 
-  const finalScore = `Final score was: You ${playerScore}, Computer ${computerScore}.`;
+  paper.addEventListener('click', () => {
+    const result = playRound(paper.value);
+    playerMoveEl.innerText = 'PAPER';
+    computerMoveEl.innerText = result.computerMove.toUpperCase();
+    if (result.status === 'win') {
+      playerScore++;
+      playerScoreEl.innerText = playerScore;
+    }
+    if (result.status === 'lose') {
+      computerScore++;
+      computerScoreEl.innerText = computerScore;
+    }
+    console.log(result.message);
+  });
 
-  if (playerScore === computerScore) {
-    console.log('It was a draw... ' + finalScore);
-  } else if (playerScore > computerScore) {
-    console.log('You win! ' + finalScore);
-  } else {
-    console.log('You lose! ' + finalScore);
-  }
+  scissors.addEventListener('click', () => {
+    const result = playRound(scissors.value);
+    playerMoveEl.innerText = 'SCISSORS';
+    computerMoveEl.innerText = result.computerMove.toUpperCase();
+    if (result.status === 'win') {
+      playerScore++;
+      playerScoreEl.innerText = playerScore;
+    }
+    if (result.status === 'lose') {
+      computerScore++;
+      computerScoreEl.innerText = computerScore;
+    }
+    console.log(result.message);
+  });
+
+  // const finalScore = `Final score was: You ${playerScore}, Computer ${computerScore}.`;
+
+  // if (playerScore === computerScore) {
+  //   console.log('It was a draw... ' + finalScore);
+  // } else if (playerScore > computerScore) {
+  //   console.log('You win! ' + finalScore);
+  // } else {
+  //   console.log('You lose! ' + finalScore);
+  // }
 }
 
 game();
