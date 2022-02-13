@@ -16,6 +16,7 @@ function computerPlay() {
 // Play round
 function playRound(playerSelection, computerSelection = computerPlay()) {
   console.log(playerSelection);
+
   if (playerSelection === null) {
     return {
       status: 'stop',
@@ -96,68 +97,62 @@ function game() {
   const paper = document.querySelector('.paper');
   const scissors = document.querySelector('.scissors');
 
-  const playerMoveEl = document.getElementById('player-move');
   const playerScoreEl = document.getElementById('player-score');
   const playerMoveIcon = document.getElementById('pl-move-icon');
-  const computerMoveEl = document.getElementById('computer-move');
+  const playerCard = document.getElementById('player-card');
   const computerScoreEl = document.getElementById('computer-score');
   const computerMoveIcon = document.getElementById('comp-move-icon');
+  const computerCard = document.getElementById('computer-card');
 
-  rock.addEventListener('click', () => {
-    const result = playRound(rock.value, computerPlay());
-    playerMoveIcon.src = icons['rock'];
+  function eventListenerHelper(move) {
+    playerCard.className = 'card';
+    computerCard.className = 'card';
+    const result = playRound(move, computerPlay());
+    playerMoveIcon.src = icons[move];
     computerMoveIcon.src = icons[result.computerMove];
+
     if (result.status === 'win') {
       playerScore++;
       playerScoreEl.innerText = playerScore;
+      playerCard.classList.add('win');
+      playerCard.classList.add('win-animation');
+      setTimeout(() => {
+        playerCard.classList.remove('win-animation');
+      }, 500);
     }
     if (result.status === 'lose') {
       computerScore++;
       computerScoreEl.innerText = computerScore;
+      playerCard.classList.add('lose');
+      playerCard.classList.add('lose-animation');
+      setTimeout(() => {
+        playerCard.classList.remove('lose-animation');
+      }, 500);
+    }
+    if (result.status === 'draw') {
+      playerCard.classList.add('draw');
+      computerCard.classList.add('draw');
+      playerCard.classList.add('draw-animation');
+      computerCard.classList.add('draw-animation');
+      setTimeout(() => {
+        playerCard.classList.remove('draw-animation');
+        computerCard.classList.remove('draw-animation');
+      }, 500);
     }
     console.log(result.message);
+  }
+
+  rock.addEventListener('click', () => {
+    eventListenerHelper('rock');
   });
 
   paper.addEventListener('click', () => {
-    const result = playRound(paper.value);
-    playerMoveIcon.src = icons['paper'];
-    computerMoveIcon.src = icons[result.computerMove];
-    if (result.status === 'win') {
-      playerScore++;
-      playerScoreEl.innerText = playerScore;
-    }
-    if (result.status === 'lose') {
-      computerScore++;
-      computerScoreEl.innerText = computerScore;
-    }
-    console.log(result.message);
+    eventListenerHelper('paper');
   });
 
   scissors.addEventListener('click', () => {
-    const result = playRound(scissors.value);
-    playerMoveIcon.src = icons['scissors'];
-    computerMoveIcon.src = icons[result.computerMove];
-
-    if (result.status === 'win') {
-      playerScore++;
-      playerScoreEl.innerText = playerScore;
-    }
-    if (result.status === 'lose') {
-      computerScore++;
-      computerScoreEl.innerText = computerScore;
-    }
-    console.log(result.message);
+    eventListenerHelper('scissors');
   });
-
-  // const finalScore = `Final score was: You ${playerScore}, Computer ${computerScore}.`;
-
-  // if (playerScore === computerScore) {
-  //   console.log('It was a draw... ' + finalScore);
-  // } else if (playerScore > computerScore) {
-  //   console.log('You win! ' + finalScore);
-  // } else {
-  //   console.log('You lose! ' + finalScore);
-  // }
 }
 
 game();

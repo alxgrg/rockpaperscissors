@@ -8,26 +8,29 @@
   <div class="main-container">
   <h1>ROCK PAPER SCISSORS!!!</h1>
   <div class="game-container">
-    <button class="rock button" value="rock" name="rock">
-      <img class="move-icon" src="https://img.icons8.com/external-icongeek26-flat-icongeek26/64/000000/external-stone-geography-icongeek26-flat-icongeek26.png" alt="">
-    </button>
-    <button class="paper button" value="paper" name="paper">
-      <img class="move-icon" src="https://img.icons8.com/fluency/48/000000/paper-waste.png" alt="">
-    </button>
-    <button class="scissors button" value="scissors" name="scissors">
-      <img class="move-icon" src="https://img.icons8.com/external-tulpahn-flat-tulpahn/64/000000/external-scissors-stationery-tulpahn-flat-tulpahn.png" alt="">
-    </button>
-
+    <div class="move-select-row">
+      <button class="rock button" value="rock" name="rock">
+        <img class="move-icon" src="https://img.icons8.com/external-icongeek26-flat-icongeek26/64/000000/external-stone-geography-icongeek26-flat-icongeek26.png" alt="">
+      </button>
+      <button class="paper button" value="paper" name="paper">
+        <img class="move-icon" src="https://img.icons8.com/fluency/48/000000/paper-waste.png" alt="">
+      </button>
+      <button class="scissors button" value="scissors" name="scissors">
+        <img class="move-icon" src="https://img.icons8.com/external-tulpahn-flat-tulpahn/64/000000/external-scissors-stationery-tulpahn-flat-tulpahn.png" alt="">
+      </button>
+    </div>
     <div class="score-box">
-      <div class="card">
+      <div id="player-card" class="card">
         
         <h3>Player</h3>
         
         <div id="player-move"><img id="pl-move-icon" class="move-icon" src="https://img.icons8.com/emoji/48/000000/white-question-mark-emoji.png" alt=""></div>
         <div class="score" id="player-score">0</div>
       </div>
+
+      <div class="vs-spacer">VS</div>
       
-      <div class="card">
+      <div id="computer-card" class="card">
         
         <h3>Computer</h3>
         

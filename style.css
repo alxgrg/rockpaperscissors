@@ -4,9 +4,14 @@
   text-align: center;
 }
 
+.move-select-row {
+  margin-bottom: 25px;
+}
+
 .score-box {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .card {
   padding: 10px;
@@ -14,6 +19,97 @@
   margin-top: 10px;
   width: 150px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.vs-spacer {
+  margin: 0 10px;
+}
+
+.win {
+  background-color: #2ee59d;
+}
+
+.lose {
+  background-color: rgb(192, 45, 45);
+}
+
+.draw {
+  background-color: rgb(245, 245, 88);
+}
+
+.lose-animation {
+  animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes draw {
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+
+  50% {
+    transform: translate3d(0, 10px, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+.draw-animation {
+  animation-name: draw;
+  animation-duration: 0.1s;
+  animation-direction: alternate;
+  animation-iteration-count: 2;
+  animation-play-state: running;
+}
+
+.win-animation {
+  animation-name: stretch;
+  animation-duration: 0.16s;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+  animation-iteration-count: 2;
+  animation-play-state: running;
+}
+
+@keyframes stretch {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .score {
