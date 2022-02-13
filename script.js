@@ -92,7 +92,6 @@ function game() {
   let playerScore = 0;
   let computerScore = 0;
 
-  const container = document.querySelector('.game-container');
   const rock = document.querySelector('.rock');
   const paper = document.querySelector('.paper');
   const scissors = document.querySelector('.scissors');
@@ -104,7 +103,10 @@ function game() {
   const computerMoveIcon = document.getElementById('comp-move-icon');
   const computerCard = document.getElementById('computer-card');
 
+  const finalResults = document.querySelector('.results');
+
   function eventListenerHelper(move) {
+    finalResults.innerText = '';
     playerCard.className = 'card';
     computerCard.className = 'card';
     const result = playRound(move, computerPlay());
@@ -114,6 +116,7 @@ function game() {
     if (result.status === 'win') {
       playerScore++;
       playerScoreEl.innerText = playerScore;
+      finalResults.innerText = 'YOU WIN!';
       playerCard.classList.add('win');
       playerCard.classList.add('win-animation');
       setTimeout(() => {
@@ -122,6 +125,7 @@ function game() {
     }
     if (result.status === 'lose') {
       computerScore++;
+      finalResults.innerText = 'YOU LOSE!';
       computerScoreEl.innerText = computerScore;
       playerCard.classList.add('lose');
       playerCard.classList.add('lose-animation');
@@ -130,6 +134,7 @@ function game() {
       }, 500);
     }
     if (result.status === 'draw') {
+      finalResults.innerText = 'DRAW!';
       playerCard.classList.add('draw');
       computerCard.classList.add('draw');
       playerCard.classList.add('draw-animation');

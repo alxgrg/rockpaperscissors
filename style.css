@@ -1,3 +1,9 @@
+html,
+body {
+  margin: 0;
+  font-family: Sans-Serif;
+}
+
 .main-container {
   width: 70%;
   margin: auto;
@@ -5,7 +11,7 @@
 }
 
 .move-select-row {
-  margin-bottom: 25px;
+  margin: 25px 0;
 }
 
 .score-box {
@@ -37,14 +43,45 @@
   background-color: rgb(245, 245, 88);
 }
 
+.score {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.move-icon {
+  height: 4rem;
+}
+
+.button {
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.button:hover {
+  background-color: #2ee59d;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  transform: translateY(-7px);
+}
+
+.results {
+  font-weight: bold;
+  height: 25px;
+  color: #171a18;
+}
+
 .lose-animation {
-  animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: lose 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
 
-@keyframes shake {
+@keyframes lose {
   10%,
   90% {
     transform: translate3d(-1px, 0, 0);
@@ -67,6 +104,14 @@
   }
 }
 
+.draw-animation {
+  animation-name: draw;
+  animation-duration: 0.1s;
+  animation-direction: alternate;
+  animation-iteration-count: 2;
+  animation-play-state: running;
+}
+
 @keyframes draw {
   0% {
     transform: translate3d(0, 0px, 0);
@@ -81,16 +126,8 @@
   }
 }
 
-.draw-animation {
-  animation-name: draw;
-  animation-duration: 0.1s;
-  animation-direction: alternate;
-  animation-iteration-count: 2;
-  animation-play-state: running;
-}
-
 .win-animation {
-  animation-name: stretch;
+  animation-name: win;
   animation-duration: 0.16s;
   animation-timing-function: ease-out;
   animation-direction: alternate;
@@ -98,7 +135,7 @@
   animation-play-state: running;
 }
 
-@keyframes stretch {
+@keyframes win {
   0% {
     transform: scale(1);
   }
@@ -110,31 +147,4 @@
   100% {
     transform: scale(1);
   }
-}
-
-.score {
-  font-size: 2.5rem;
-  font-weight: 600;
-}
-
-.move-icon {
-  height: 4rem;
-}
-
-.button {
-  /* width: 140px;
-  height: 45px; */
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
-}
-
-.button:hover {
-  background-color: #2ee59d;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  transform: translateY(-7px);
 }
