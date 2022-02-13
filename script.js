@@ -1,3 +1,10 @@
+const icons = {
+  rock: 'https://img.icons8.com/external-icongeek26-flat-icongeek26/64/000000/external-stone-geography-icongeek26-flat-icongeek26.png',
+  paper: 'https://img.icons8.com/fluency/48/000000/paper-waste.png',
+  scissors:
+    'https://img.icons8.com/external-tulpahn-flat-tulpahn/64/000000/external-scissors-stationery-tulpahn-flat-tulpahn.png',
+};
+
 // Generate random player move
 function computerPlay() {
   const moves = ['Rock', 'Paper', 'Scissors'];
@@ -8,6 +15,7 @@ function computerPlay() {
 
 // Play round
 function playRound(playerSelection, computerSelection = computerPlay()) {
+  console.log(playerSelection);
   if (playerSelection === null) {
     return {
       status: 'stop',
@@ -83,20 +91,22 @@ function game() {
   let playerScore = 0;
   let computerScore = 0;
 
-  const container = document.querySelector('.container');
+  const container = document.querySelector('.game-container');
   const rock = document.querySelector('.rock');
   const paper = document.querySelector('.paper');
   const scissors = document.querySelector('.scissors');
 
   const playerMoveEl = document.getElementById('player-move');
   const playerScoreEl = document.getElementById('player-score');
+  const playerMoveIcon = document.getElementById('pl-move-icon');
   const computerMoveEl = document.getElementById('computer-move');
   const computerScoreEl = document.getElementById('computer-score');
+  const computerMoveIcon = document.getElementById('comp-move-icon');
 
   rock.addEventListener('click', () => {
     const result = playRound(rock.value, computerPlay());
-    playerMoveEl.innerText = 'ROCK';
-    computerMoveEl.innerText = result.computerMove.toUpperCase();
+    playerMoveIcon.src = icons['rock'];
+    computerMoveIcon.src = icons[result.computerMove];
     if (result.status === 'win') {
       playerScore++;
       playerScoreEl.innerText = playerScore;
@@ -110,8 +120,8 @@ function game() {
 
   paper.addEventListener('click', () => {
     const result = playRound(paper.value);
-    playerMoveEl.innerText = 'PAPER';
-    computerMoveEl.innerText = result.computerMove.toUpperCase();
+    playerMoveIcon.src = icons['paper'];
+    computerMoveIcon.src = icons[result.computerMove];
     if (result.status === 'win') {
       playerScore++;
       playerScoreEl.innerText = playerScore;
@@ -125,8 +135,9 @@ function game() {
 
   scissors.addEventListener('click', () => {
     const result = playRound(scissors.value);
-    playerMoveEl.innerText = 'SCISSORS';
-    computerMoveEl.innerText = result.computerMove.toUpperCase();
+    playerMoveIcon.src = icons['scissors'];
+    computerMoveIcon.src = icons[result.computerMove];
+
     if (result.status === 'win') {
       playerScore++;
       playerScoreEl.innerText = playerScore;
